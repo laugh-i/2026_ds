@@ -2,84 +2,1043 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPACE PERSONALITY | 空間デザイン診断</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 100px;
-      background: #f5f5f5;
-    }
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@500;600&display=swap');
 
-    button {
-      padding: 12px 24px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      background: #333;
-      color: white;
-      cursor: pointer;
-    }
+  :root {
+    --bg: #f4f1eb;
+    --ink: #292923;
+    --sub: #77766e;
+    --accent: #66765b;
+    --line: #dedbd2;
+    --card: #fffefa;
+  }
 
-    button:hover {
-      background: #555;
-    }
+  * { box-sizing: border-box; }
 
-    #message {
-      margin-top: 30px;
-      font-size: 42px;
-      font-weight: bold;
-    }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 1.8;
+  }
 
-    .rainbow {
-      background: linear-gradient(
-        90deg,
-        red,
-        orange,
-        yellow,
-        green,
-        blue,
-        indigo,
-        violet
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      background-size: 200% auto;
-      animation: rainbow 3s linear infinite;
-    }
+  header {
+    padding: 22px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
 
-    @keyframes rainbow {
-      to {
-        background-position: 200% center;
-      }
-    }
-  </style>
+  .brand {
+    font-family: "Playfair Display", serif;
+    font-size: 19px;
+    letter-spacing: 3px;
+  }
+
+  .hero {
+    padding: 80px 20px 55px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 4px;
+    font-weight: bold;
+  }
+
+  h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(38px, 7vw, 70px);
+    line-height: 1.15;
+    font-weight: 500;
+    margin: 22px 0;
+  }
+
+  .hero p {
+    font-size: 13px;
+    color: var(--sub);
+  }
+
+  .container {
+    max-width: 880px;
+    margin: auto;
+    padding: 0 20px 80px;
+  }
+
+  .intro {
+    background: #e8e7dc;
+    padding: 22px 26px;
+    font-size: 13px;
+    margin-bottom: 45px;
+  }
+
+  .section-title {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px;
+    margin: 45px 0 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+  }
+
+  .section-title .num {
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    color: var(--accent);
+  }
+
+  .section-title h2 {
+    font-size: 17px;
+    margin: 0;
+  }
+
+  .section-title small {
+    color: var(--sub);
+    font-size: 11px;
+    margin-left: auto;
+  }
+
+  .options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .option {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    min-width: 0;
+  }
+
+  .option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .option-inner {
+    height: 100%;
+    min-height: 125px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 16px 12px;
+    transition: .2s;
+  }
+
+  .option:hover .option-inner {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .option input:checked + .option-inner {
+    border: 2px solid var(--accent);
+    background: #f0f1e9;
+    padding: 15px 11px;
+  }
+
+  .option input:focus-visible + .option-inner {
+    outline: 3px solid #9aa88e;
+    outline-offset: 3px;
+  }
+
+  .option input:checked + .option-inner::after {
+    content: "✓ SELECTED";
+    display: block;
+    color: var(--accent);
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  .swatch {
+    height: 43px;
+    margin-bottom: 10px;
+    border: 1px solid #0000000c;
+  }
+
+  .option strong {
+    font-size: 12px;
+    display: block;
+  }
+
+  .option small {
+    display: block;
+    font-size: 10px;
+    color: var(--sub);
+    margin-top: 4px;
+    line-height: 1.6;
+  }
+
+  .symbol {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: var(--accent);
+    line-height: 1.4;
+  }
+
+  .hint {
+    font-size: 11px;
+    color: var(--sub);
+    margin-top: 10px;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 45px;
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    padding: 16px 20px;
+    font-size: 13px;
+    transition: .2s;
+  }
+
+  .primary {
+    flex: 1;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: white;
+    letter-spacing: 2px;
+  }
+
+  .primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .secondary {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+
+  #error {
+    color: #a33b30;
+    font-size: 12px;
+    margin-top: 15px;
+  }
+
+  #result {
+    display: none;
+    margin-top: 65px;
+    scroll-margin-top: 25px;
+  }
+
+  .result-head {
+    text-align: center;
+    padding: 40px 15px;
+    background: #e6e7dc;
+  }
+
+  .result-head .eyebrow {
+    font-size: 10px;
+  }
+
+  #resultName {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(32px, 6vw, 53px);
+    line-height: 1.3;
+    margin: 18px 0 10px;
+    font-weight: 500;
+  }
+
+  #resultSubtitle {
+    font-size: 13px;
+  }
+
+  .result-body {
+    background: var(--card);
+    padding: clamp(20px, 5vw, 42px);
+  }
+
+  .result-body h3 {
+    font-size: 14px;
+    margin: 30px 0 10px;
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+  }
+
+  .result-body p {
+    font-size: 13px;
+    color: #57574f;
+  }
+
+  .palette {
+    display: flex;
+    height: 75px;
+    margin-top: 15px;
+  }
+
+  .palette div {
+    flex: 1;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding-bottom: 5px;
+    font-size: 9px;
+    color: #fff;
+    text-shadow: 0 1px 3px #3338;
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .tag {
+    display: inline-block;
+    border: 1px solid var(--line);
+    padding: 5px 10px;
+    font-size: 11px;
+    margin: 3px;
+  }
+
+  .quote {
+    margin-top: 28px;
+    padding: 22px;
+    background: #f1efe8;
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+    color: var(--sub);
+    font-size: 10px;
+    letter-spacing: 1px;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 560px) {
+    header { padding: 18px 5%; }
+    .hero { padding-top: 55px; }
+    .options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .section-title small { display: none; }
+    .result-grid { grid-template-columns: 1fr; gap: 0; }
+    .actions { flex-direction: column; }
+  }
+</style>
 </head>
 
 <body>
 
-  <h1>Hello World</h1>
+<header>
+  <div class="brand">SPACE PERSONALITY</div>
+  <div>INTERIOR DESIGN / 01</div>
+</header>
 
-  <button id="helloButton">
-    クリックしてください
-  </button>
+<section class="hero">
+  <div class="eyebrow">DISCOVER YOUR SPACE</div>
+  <h1>Find Your<br>Spatial Identity.</h1>
+  <p>あなたの美意識から、理想の空間を見つける。</p>
+</section>
 
-  <div id="message"></div>
+<main class="container">
+  <div class="intro">
+    好きな色、建築、家具、照明、芸術家をそれぞれ1つ選んでください。
+    あなたの感性を分析し、理想のインテリアと空間デザインの方向性を提案します。
+  </div>
 
-  <script>
-    const button = document.getElementById("helloButton");
-    const message = document.getElementById("message");
+  <form id="diagnosis">
 
-    button.addEventListener("click", function () {
-      message.textContent = "Hello world";
-      message.classList.add("rainbow");
-    });
-  </script>
+    <div class="section-title">
+      <span class="num">01</span>
+      <h2>好きな色</h2>
+      <small>YOUR COLOR</small>
+    </div>
+
+    <div class="options">
+      <label class="option">
+        <input type="radio" name="color" value="green" data-label="オリーブグリーン" data-scores='{"organic":3,"minimal":1}'>
+        <div class="option-inner">
+          <div class="swatch" style="background:#7d8866"></div>
+          <strong>オリーブグリーン</strong>
+          <small>自然・安らぎ・植物</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="color" value="white" data-label="ホワイト" data-scores='{"minimal":3,"modern":1}'>
+        <div class="option-inner">
+          <div class="swatch" style="background:#f3f0e7"></div>
+          <strong>ホワイト</strong>
+          <small>余白・清潔感・静寂</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="color" value="blue" data-label="ブルー" data-scores='{"modern":2,"poetic":2}'>
+        <div class="option-inner">
+          <div class="swatch" style="background:#637f9a"></div>
+          <strong>ブルー</strong>
+          <small>知性・深み・静けさ</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="color" value="terracotta" data-label="テラコッタ" data-scores='{"organic":2,"bold":2}'>
+        <div class="option-inner">
+          <div class="swatch" style="background:#bd785b"></div>
+          <strong>テラコッタ</strong>
+          <small>土・温もり・素朴さ</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="color" value="black" data-label="ブラック" data-scores='{"modern":3,"minimal":1}'>
+        <div class="option-inner">
+          <div class="swatch" style="background:#292923"></div>
+          <strong>ブラック</strong>
+          <small>緊張感・洗練・輪郭</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="color" value="pink" data-label="ピンク" data-scores='{"poetic":3,"bold":1}'>
+        <div class="option-inner">
+          <div class="swatch" style="background:#d9a5aa"></div>
+          <strong>ピンク</strong>
+          <small>感性・柔らかさ・華やかさ</small>
+        </div>
+      </label>
+    </div>
+
+    <div class="section-title">
+      <span class="num">02</span>
+      <h2>好きな建築</h2>
+      <small>ARCHITECTURE</small>
+    </div>
+
+    <div class="options">
+      <label class="option">
+        <input type="radio" name="architecture" value="minimal" data-label="ミニマル建築" data-scores='{"minimal":3,"modern":1}'>
+        <div class="option-inner">
+          <div class="symbol">□</div>
+          <strong>ミニマル建築</strong>
+          <small>簡潔な形、余白、光</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="architecture" value="organic" data-label="自然と調和する建築" data-scores='{"organic":3,"poetic":1}'>
+        <div class="option-inner">
+          <div class="symbol">⌒</div>
+          <strong>自然と調和する建築</strong>
+          <small>地形、木、風景とのつながり</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="architecture" value="modern" data-label="モダニズム建築" data-scores='{"modern":3,"minimal":1}'>
+        <div class="option-inner">
+          <div class="symbol">▥</div>
+          <strong>モダニズム建築</strong>
+          <small>合理性、幾何学、構造美</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="architecture" value="japanese" data-label="日本の伝統建築" data-scores='{"organic":2,"minimal":2,"poetic":1}'>
+        <div class="option-inner">
+          <div class="symbol">⌂</div>
+          <strong>日本の伝統建築</strong>
+          <small>木、障子、縁側、陰影</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="architecture" value="sculptural" data-label="彫刻的な建築" data-scores='{"bold":3,"poetic":1}'>
+        <div class="option-inner">
+          <div class="symbol">△</div>
+          <strong>彫刻的な建築</strong>
+          <small>大胆な形、造形、存在感</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="architecture" value="classical" data-label="古典・装飾建築" data-scores='{"poetic":2,"bold":2}'>
+        <div class="option-inner">
+          <div class="symbol">♧</div>
+          <strong>古典・装飾建築</strong>
+          <small>装飾、歴史、優雅な曲線</small>
+        </div>
+      </label>
+    </div>
+
+    <div class="section-title">
+      <span class="num">03</span>
+      <h2>好きな家具</h2>
+      <small>FURNITURE</small>
+    </div>
+
+    <div class="options">
+      <label class="option">
+        <input type="radio" name="furniture" value="wood" data-label="木製家具" data-scores='{"organic":3,"minimal":1}'>
+        <div class="option-inner">
+          <div class="symbol">⌒</div>
+          <strong>木製家具</strong>
+          <small>木目、手触り、経年変化</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="furniture" value="simple" data-label="シンプルな家具" data-scores='{"minimal":3,"modern":1}'>
+        <div class="option-inner">
+          <div class="symbol">▱</div>
+          <strong>シンプルな家具</strong>
+          <small>機能性、直線、軽やかさ</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="furniture" value="metal" data-label="金属・ガラス家具" data-scores='{"modern":3,"minimal":1}'>
+        <div class="option-inner">
+          <div class="symbol">▤</div>
+          <strong>金属・ガラス家具</strong>
+          <small>透明感、シャープ、都会的</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="furniture" value="vintage" data-label="ヴィンテージ家具" data-scores='{"poetic":2,"organic":1,"bold":1}'>
+        <div class="option-inner">
+          <div class="symbol">♧</div>
+          <strong>ヴィンテージ家具</strong>
+          <small>歴史、味わい、物語</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="furniture" value="sculpture" data-label="彫刻的な家具" data-scores='{"bold":3,"poetic":1}'>
+        <div class="option-inner">
+          <div class="symbol">◒</div>
+          <strong>彫刻的な家具</strong>
+          <small>有機的な形、造形美、個性</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="furniture" value="soft" data-label="ファブリック家具" data-scores='{"poetic":3,"organic":1}'>
+        <div class="option-inner">
+          <div class="symbol">〰</div>
+          <strong>ファブリック家具</strong>
+          <small>布、曲線、柔らかな座り心地</small>
+        </div>
+      </label>
+    </div>
+
+    <div class="section-title">
+      <span class="num">04</span>
+      <h2>好きな照明</h2>
+      <small>LIGHTING</small>
+    </div>
+
+    <div class="options">
+      <label class="option">
+        <input type="radio" name="lighting" value="indirect" data-label="間接照明" data-scores='{"poetic":3,"minimal":1}'>
+        <div class="option-inner">
+          <div class="symbol">☼</div>
+          <strong>間接照明</strong>
+          <small>柔らかな光、落ち着き、陰影</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="lighting" value="natural" data-label="自然光" data-scores='{"organic":3,"minimal":1}'>
+        <div class="option-inner">
+          <div class="symbol">☀</div>
+          <strong>自然光</strong>
+          <small>日差し、開放感、時間の変化</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="lighting" value="spot" data-label="スポットライト" data-scores='{"modern":3,"bold":1}'>
+        <div class="option-inner">
+          <div class="symbol">↘</div>
+          <strong>スポットライト</strong>
+          <small>焦点、コントラスト、演出</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="lighting" value="pendant" data-label="ペンダントライト" data-scores='{"poetic":2,"organic":1,"bold":1}'>
+        <div class="option-inner">
+          <div class="symbol">◯</div>
+          <strong>ペンダントライト</strong>
+          <small>光のオブジェ、親密な空間</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="lighting" value="sculptural" data-label="造形的な照明" data-scores='{"bold":3,"modern":1}'>
+        <div class="option-inner">
+          <div class="symbol">✳</div>
+          <strong>造形的な照明</strong>
+          <small>個性的な形、光そのものの美</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="lighting" value="warm" data-label="暖色の灯り" data-scores='{"organic":2,"poetic":2}'>
+        <div class="option-inner">
+          <div class="symbol">♨</div>
+          <strong>暖色の灯り</strong>
+          <small>温もり、くつろぎ、安心感</small>
+        </div>
+      </label>
+    </div>
+
+    <div class="section-title">
+      <span class="num">05</span>
+      <h2>好きな芸術家</h2>
+      <small>ARTIST</small>
+    </div>
+
+    <div class="options">
+      <label class="option">
+        <input type="radio" name="artist" value="monet" data-label="クロード・モネ" data-scores='{"organic":2,"poetic":3}'>
+        <div class="option-inner">
+          <div class="symbol">✳</div>
+          <strong>クロード・モネ</strong>
+          <small>光、自然、移ろう色彩</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="artist" value="matisse" data-label="アンリ・マティス" data-scores='{"bold":3,"poetic":1}'>
+        <div class="option-inner">
+          <div class="symbol">✿</div>
+          <strong>アンリ・マティス</strong>
+          <small>色彩、リズム、装飾性</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="artist" value="mondrian" data-label="ピエト・モンドリアン" data-scores='{"minimal":2,"modern":3}'>
+        <div class="option-inner">
+          <div class="symbol">▦</div>
+          <strong>ピエト・モンドリアン</strong>
+          <small>直線、秩序、抽象表現</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="artist" value="vanGogh" data-label="フィンセント・ファン・ゴッホ" data-scores='{"bold":3,"poetic":1}'>
+        <div class="option-inner">
+          <div class="symbol">✴</div>
+          <strong>フィンセント・ファン・ゴッホ</strong>
+          <small>強い色彩、筆触、感情</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="artist" value="kusama" data-label="草間彌生" data-scores='{"bold":3,"modern":1}'>
+        <div class="option-inner">
+          <div class="symbol">●</div>
+          <strong>草間彌生</strong>
+          <small>反復、没入、強烈な視覚表現</small>
+        </div>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="artist" value="wright" data-label="フランク・ロイド・ライト" data-scores='{"organic":3,"minimal":1}'>
+        <div class="option-inner">
+          <div class="symbol">⌂</div>
+          <strong>フランク・ロイド・ライト</strong>
+          <small>建築と自然、水平線、調和</small>
+        </div>
+      </label>
+    </div>
+
+    <p class="hint">
+      ※芸術家の選択肢は、作品の特徴を空間デザインに結びつけた診断用の分類です。
+    </p>
+
+    <div class="actions">
+      <button type="submit" class="primary">
+        DISCOVER MY SPACE　→
+      </button>
+      <button type="reset" class="secondary">リセット</button>
+    </div>
+    <p id="error" role="alert"></p>
+  </form>
+
+  <section id="result" aria-live="polite">
+    <div class="result-head">
+      <div class="eyebrow">YOUR SPATIAL IDENTITY</div>
+      <h2 id="resultName"></h2>
+      <div id="resultSubtitle"></div>
+    </div>
+
+    <div class="result-body">
+      <h3>01 / あなたの空間タイプ</h3>
+      <p id="description"></p>
+
+      <h3>02 / あなたの美意識</h3>
+      <p id="personality"></p>
+      <div id="tags"></div>
+
+      <h3>03 / おすすめのカラーパレット</h3>
+      <p id="paletteDescription"></p>
+      <div class="palette" id="palette"></div>
+
+      <div class="result-grid">
+        <div>
+          <h3>04 / おすすめの素材</h3>
+          <p id="materials"></p>
+        </div>
+        <div>
+          <h3>05 / 理想の空間づくり</h3>
+          <p id="interior"></p>
+        </div>
+      </div>
+
+      <h3>06 / あなたの選択</h3>
+      <p id="selections"></p>
+
+      <div class="quote" id="quote"></div>
+
+      <div class="actions">
+        <button class="primary" id="retry">もう一度診断する ↗</button>
+        <button class="secondary" id="share">結果をコピー</button>
+      </div>
+      <p id="shareMessage" role="status"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  SPACE PERSONALITY — A STUDY OF PERSONAL TASTE AND SPACE
+</footer>
+
+<script>
+const profiles = {
+  minimal: {
+    name: "The Quiet Minimalist",
+    jp: "静寂と余白を愛する人",
+    subtitle: "LESS, BUT BETTER.",
+    description:
+      "余計な装飾を削ぎ落とし、空間そのものが持つ美しさを大切にするタイプ。形、素材、光のわずかな違いに魅力を感じます。ものを増やすより、一つひとつの存在感を引き出す空間が向いています。",
+    personality:
+      "情報量の少ない環境で心地よさを感じ、明快な構成や整ったプロポーションに惹かれる傾向があります。",
+    tags: ["余白", "静けさ", "幾何学", "簡潔さ"],
+    materials:
+      "白い塗装、淡い木材、石、マットな金属。素材の種類を絞り、質感の違いで変化をつけましょう。",
+    interior:
+      "家具の数を絞り、動線と余白を確保します。窓から入る光や壁に落ちる影も、インテリアの一部として扱います。",
+    quote: "「何を置くか」だけでなく、「何を置かないか」。"
+  },
+  organic: {
+    name: "The Nature Seeker",
+    jp: "自然とのつながりを求める人",
+    subtitle: "A LIFE IN HARMONY.",
+    description:
+      "自然素材や植物、日光、風景とのつながりを重視するタイプ。建築を閉じた箱としてではなく、周囲の環境と連続する場所として捉えます。使い込むほどに味わいが増す空間が向いています。",
+    personality:
+      "人工的に整えられた美しさだけでなく、木目や石の表情、季節による光の変化など、不均一さの中にある魅力に惹かれます。",
+    tags: ["自然素材", "植物", "調和", "経年変化"],
+    materials:
+      "オーク、ウォルナット、石、リネン、土の質感が残る左官仕上げ。自然な色むらも魅力として生かします。",
+    interior:
+      "窓辺に植物を置き、木製家具やファブリックを取り入れます。室内から庭や空が見えるよう、視線の抜けを意識しましょう。",
+    quote: "自然を飾るのではなく、自然とともに暮らす。"
+  },
+  modern: {
+    name: "The Modernist",
+    jp: "構造と秩序を愛する人",
+    subtitle: "FORM FOLLOWS FUNCTION.",
+    description:
+      "幾何学的な形、明快な構造、機能と美しさの関係に惹かれるタイプ。直線や素材の対比によって生まれる緊張感を楽しみます。洗練された都市的な空間が向いています。",
+    personality:
+      "形の理由やものの仕組みに関心があり、デザインに一貫した考え方が感じられると魅力を感じやすい傾向があります。",
+    tags: ["幾何学", "構造美", "機能性", "コントラスト"],
+    materials:
+      "ガラス、スチール、コンクリート、石、濃色の木材。異なる素材を組み合わせて輪郭を際立たせます。",
+    interior:
+      "直線的な家具と計画的な照明を組み合わせ、素材の切り替わりや家具の配置に明確な秩序を持たせます。",
+    quote: "機能と構造の中に、美しさを見つける。"
+  },
+  poetic: {
+    name: "The Poetic Dreamer",
+    jp: "光と物語を愛する人",
+    subtitle: "LIGHT, MEMORY, AND EMOTION.",
+    description:
+      "光の移ろい、柔らかな色彩、思い出のあるものに心を動かされるタイプ。空間に漂う雰囲気や、そこで過ごす時間そのものを大切にします。感情に静かに働きかける空間が向いています。",
+    personality:
+      "目に見える形だけでなく、場所が持つ記憶や時間帯による表情の違いなど、言葉にしにくい感覚を重視します。",
+    tags: ["陰影", "感性", "記憶", "柔らかさ"],
+    materials:
+      "リネン、真鍮、色ガラス、古材、柔らかな塗装。光を受けたときの表情にも注目しましょう。",
+    interior:
+      "間接照明、カーテン、アート、思い出の品を組み合わせます。昼と夜で異なる雰囲気を楽しめる照明計画がおすすめです。",
+    quote: "美しい空間は、そこで過ごした時間まで美しくする。"
+  },
+  bold: {
+    name: "The Creative Expressionist",
+    jp: "個性と表現を楽しむ人",
+    subtitle: "MAKE A STATEMENT.",
+    description:
+      "強い色彩、印象的な形、意外性のある組み合わせに惹かれるタイプ。空間を自己表現の媒体として楽しみます。ひと目で印象に残る、個性豊かな空間が向いています。",
+    personality:
+      "既存のルールにとらわれず、違う時代や文化のデザインを組み合わせることに面白さを感じる傾向があります。",
+    tags: ["色彩", "造形", "実験性", "個性"],
+    materials:
+      "色鮮やかな塗装、柄のあるファブリック、特徴的な木材、光沢のある金属。異素材の組み合わせを楽しみましょう。",
+    interior:
+      "印象的な家具やアートを主役にして、周囲の色や形を調整します。すべてを目立たせず、主役を一つ決めるとまとまりやすくなります。",
+    quote: "自分の好きという感覚を、空間の主役にする。"
+  }
+};
+
+const colorPalettes = {
+  green: {
+    description: "植物の色を中心に、生成りと木の色を重ねる配色。",
+    colors: [
+      ["#7d8866", "GREEN"],
+      ["#e8e0cf", "IVORY"],
+      ["#a58b70", "WOOD"],
+      ["#555b49", "MOSS"]
+    ]
+  },
+  white: {
+    description: "白の中に明度の違いをつくり、素材の陰影を引き立てる配色。",
+    colors: [
+      ["#f3f0e7", "WHITE"],
+      ["#d8d4c9", "STONE"],
+      ["#b8b09e", "SAND"],
+      ["#45463f", "CHARCOAL"]
+    ]
+  },
+  blue: {
+    description: "深い青とグレーを基調に、静かな奥行きを生み出す配色。",
+    colors: [
+      ["#637f9a", "BLUE"],
+      ["#d9dedf", "MIST"],
+      ["#c0b5a3", "SAND"],
+      ["#394653", "NAVY"]
+    ]
+  },
+  terracotta: {
+    description: "土の赤みとベージュ、木の色を重ねた温かみのある配色。",
+    colors: [
+      ["#bd785b", "CLAY"],
+      ["#e8d8c3", "SAND"],
+      ["#8b745b", "WOOD"],
+      ["#5c6250", "OLIVE"]
+    ]
+  },
+  black: {
+    description: "黒をアクセントに、淡いグレーと自然な素材で緊張感を整える配色。",
+    colors: [
+      ["#292923", "BLACK"],
+      ["#d7d4cb", "STONE"],
+      ["#8d8b83", "GREY"],
+      ["#b09a7a", "BRASS"]
+    ]
+  },
+  pink: {
+    description: "柔らかなピンクにアイボリーと落ち着いた色を合わせる配色。",
+    colors: [
+      ["#d9a5aa", "PINK"],
+      ["#f1e8df", "IVORY"],
+      ["#a89c92", "TAUPE"],
+      ["#756d76", "MAUVE"]
+    ]
+  }
+};
+
+const form = document.getElementById("diagnosis");
+const result = document.getElementById("result");
+const error = document.getElementById("error");
+
+form.addEventListener("change", () => {
+  error.textContent = "";
+});
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const categories = [
+    "color",
+    "architecture",
+    "furniture",
+    "lighting",
+    "artist"
+  ];
+
+  const selected = {};
+  const scores = {
+    minimal: 0,
+    organic: 0,
+    modern: 0,
+    poetic: 0,
+    bold: 0
+  };
+
+  for (const category of categories) {
+    const input = form.querySelector(
+      `input[name="${category}"]:checked`
+    );
+
+    if (!input) {
+      error.textContent =
+        "まだ選んでいない項目があります。5つすべて選んでください。";
+
+      const missing = form.querySelector(
+        `input[name="${category}"]`
+      );
+
+      missing.focus();
+      return;
+    }
+
+    selected[category] = {
+      value: input.value,
+      label: input.dataset.label
+    };
+
+    const points = JSON.parse(input.dataset.scores);
+
+    for (const [style, point] of Object.entries(points)) {
+      scores[style] += point;
+    }
+  }
+
+  const maxScore = Math.max(...Object.values(scores));
+
+  // 同点の場合は、候補の中から順序に基づいて選ぶ
+  const winner = Object.keys(scores).find(
+    style => scores[style] === maxScore
+  );
+
+  const profile = profiles[winner];
+  const palette = colorPalettes[selected.color.value];
+
+  document.getElementById("resultName").textContent = profile.name;
+  document.getElementById("resultSubtitle").textContent = profile.jp;
+  document.getElementById("description").textContent = profile.description;
+  document.getElementById("personality").textContent = profile.personality;
+  document.getElementById("materials").textContent = profile.materials;
+  document.getElementById("interior").textContent = profile.interior;
+  document.getElementById("quote").textContent = profile.quote;
+
+  const tags = document.getElementById("tags");
+  tags.replaceChildren();
+
+  profile.tags.forEach(text => {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = text;
+    tags.appendChild(span);
+  });
+
+  document.getElementById("paletteDescription").textContent =
+    palette.description;
+
+  const paletteElement = document.getElementById("palette");
+  paletteElement.replaceChildren();
+
+  palette.colors.forEach(([color, name]) => {
+    const swatch = document.createElement("div");
+    swatch.style.backgroundColor = color;
+    swatch.textContent = name;
+    paletteElement.appendChild(swatch);
+  });
+
+  const labels = {
+    color: "色",
+    architecture: "建築",
+    furniture: "家具",
+    lighting: "照明",
+    artist: "芸術家"
+  };
+
+  const selections = document.getElementById("selections");
+  selections.replaceChildren();
+
+  categories.forEach(category => {
+    const line = document.createElement("div");
+    line.textContent =
+      labels[category] + "：" + selected[category].label;
+    selections.appendChild(line);
+  });
+
+  // コピー用の診断結果も保存
+  result.dataset.summary = [
+    "SPACE PERSONALITY",
+    profile.name + " — " + profile.jp,
+    profile.description,
+    "好きな色：" + selected.color.label,
+    "好きな建築：" + selected.architecture.label,
+    "好きな家具：" + selected.furniture.label,
+    "好きな照明：" + selected.lighting.label,
+    "好きな芸術家：" + selected.artist.label,
+    "おすすめの素材：" + profile.materials,
+    "理想の空間づくり：" + profile.interior
+  ].join("\n\n");
+
+  document.getElementById("shareMessage").textContent = "";
+  result.style.display = "block";
+  result.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.getElementById("retry").addEventListener("click", () => {
+  result.style.display = "none";
+  form.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.getElementById("share").addEventListener("click", async () => {
+  const text = result.dataset.summary;
+  const message = document.getElementById("shareMessage");
+
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      const copied = document.execCommand("copy");
+      textarea.remove();
+
+      if (!copied) throw new Error("Copy failed");
+    }
+
+    message.textContent = "診断結果をコピーしました。";
+  } catch (err) {
+    message.textContent =
+      "自動コピーできませんでした。診断結果を選択してコピーしてください。";
+  }
+});
+
+form.addEventListener("reset", () => {
+  error.textContent = "";
+  result.style.display = "none";
+  document.getElementById("shareMessage").textContent = "";
+});
+</script>
 
 </body>
 </html>
-
